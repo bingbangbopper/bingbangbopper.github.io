@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Studio &#x2192; OpenRouter chat file converter</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column; /* Stack elements vertically */
+        }
+
+        #dropZone {
+            padding: 40px;
+            border: 3px dashed #ccc;
+            text-align: center;
+            color: #666;
+            margin: 20px;
+            flex-shrink: 0; /* Prevent drop zone from shrinking */
+            transition: background-color 0.2s ease;
+        }
+
+        #dropZone.drag-over {
+            border-color: #333;
+            background-color: #eee;
+        }
+
+        #outputJson {
+            flex-grow: 1; /* Allow textarea to fill remaining space */
+            width: 100%;
+            box-sizing: border-box; /* Include padding and border in element's total width and height */
+            border: none; /* Remove default border */
+            padding: 10px;
+            font-family: monospace; /* Better for JSON */
+            font-size: 1rem;
+            resize: none; /* Disable manual resizing */
+        }
+
+        #status {
+            padding: 5px 20px;
+            font-size: 0.9em;
+            color: #333;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="dropZone">Drop the AI Studio prompt file here. The OpenRouter messages will appear below.</div>
+    <div id="status">Waiting for file...</div>
+    <textarea id="outputJson" readonly placeholder="Processed JSON output will appear here..."></textarea>
+
+    <script>
+        /**
+ * Generates a unique message ID string.
+ * Format: msg-timestamp-randomString
+ * @returns {string} A unique message ID.
+ */
+function generateMessageId() {
+  const timestamp = Date.now();
+  // Generate a shorter random string for brevity, adjust length as needed
+  const randomString = [...Array(12)].map(_ => Math.random().toString(36)[2]).join('');
+  return `msg-${timestamp}-${randomString}`;
+}
+
+/**
+ * Generates an ISO-formatted timestamp string.
+ * Can add a small offset to simulate a sequence.
+ * @param {number} index - The index in the original list (for offsetting).
+ * @returns {string} An ISO-formatted timestamp.
+ */
+function generateTimestamp(index = 0) {
+  const baseDate = new Date();
+  // Add a small, unique offset based on index to simulate distinct timestamps
+  baseDate.setMilliseconds(baseDate.getMilliseconds() + index * 10);
+  return baseDate.toISOString();
+}
+
+/**
+ * Maps a list of message objects to a dictionary keyed by unique message IDs.
+ * Handles 'user' and 'model' roles, and incorporates 'thought' messages
+ * into the 'reasoning' field of the subsequent 'model' message.
+ *
+ * @param {Array<Object>} messageList - The input list of message objects.
+ * @param {string} modelCharacterId - The character ID to use for 'model' roles.
+ * @returns {Object} A dictionary mapping message IDs to enriched message objects.
+ */
+function mapMessagesToDictionary(messageList, modelCharacterId = "char-1746155374-fUQu00OfC2l9cPGouK3m") {
+  messageList.reverse();
+  // Use reduce to build the dictionary while managing the state of the last thought
+  const initialState = {
+    outputDict: {},
+    lastThoughtText: null
+  };
+
+  const finalState = messageList.reduce((state, currentItem, index) => {
+    // If the current item is a thought, store its text and proceed to the next item
+    if (currentItem.isThought === true) {
+      state.lastThoughtText = currentItem.text;
+      return state; // Don't add thought messages directly to the output
+    }
+
+    // Generate common fields for user and model messages
+    const messageId = generateMessageId();
+    const timestamp = generateTimestamp(index);
+    const messageData = {
+      content: currentItem.text,
+      id: messageId,
+      updatedAt: timestamp,
+      isGenerating: false, // Assuming messages are complete
+      citations: [], // Default value based on example
+      files: [], // Default value based on example
+    };
+
+    // Handle 'user' role
+    if (currentItem.role === 'user') {
+      messageData.characterId = 'USER'; // Specific ID for user
+      messageData.attachments = []; // User messages have attachments array in example
+      state.outputDict[messageId] = messageData;
+      // Reset last thought text, as it shouldn't apply to a user message
+      state.lastThoughtText = null;
+    }
+    // Handle 'model' role
+    else if (currentItem.role === 'model') {
+      messageData.characterId = modelCharacterId; // Use provided model character ID
+      // Add metadata specific to model messages
+      messageData.metadata = {
+        variantSlug: "placeholder/variant", // Placeholder value
+        generateDuration: 0, // Placeholder value
+        latencyDuration: 0, // Placeholder value
+        reasoningDuration: state.lastThoughtText ? 1000 : 0, // Placeholder, maybe estimate based on thought presence
+        duration: 1000, // Placeholder value
+        tokensCount: currentItem.tokenCount || 0, // Use tokenCount from input
+        tokensPerSecond: 0, // Placeholder value
+        provider: "PlaceholderProvider", // Placeholder value
+        cost: "0" // Placeholder value
+      };
+      // Add reasoning field using the stored thought text, if available
+      messageData.reasoning = state.lastThoughtText;
+      state.outputDict[messageId] = messageData;
+      // Reset last thought text after consuming it
+      state.lastThoughtText = null;
+    }
+    // Silently ignore items with unrecognized roles or structures
+
+    return state; // Pass the updated state to the next iteration
+  }, initialState);
+
+  return finalState.outputDict; // Return the completed dictionary
+}
+
+
+        // --- Drag and Drop Logic ---
+        const dropZone = document.getElementById('dropZone');
+        const outputJson = document.getElementById('outputJson');
+        const statusDiv = document.getElementById('status');
+
+        function updateStatus(message, isError = false) {
+            statusDiv.textContent = message;
+            statusDiv.style.color = isError ? 'red' : '#333';
+            console.log(message); // Log status to console as well
+        }
+
+        // Prevent default drag behaviors
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, preventDefaults, false);
+            document.body.addEventListener(eventName, preventDefaults, false); // Prevent browser opening file
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        // Highlight drop zone when item is dragged over it
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, highlight, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, unhighlight, false);
+        });
+
+        function highlight(e) {
+            dropZone.classList.add('drag-over');
+        }
+
+        function unhighlight(e) {
+            dropZone.classList.remove('drag-over');
+        }
+
+        // Handle dropped files
+        dropZone.addEventListener('drop', handleDrop, false);
+
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+
+            if (files.length !== 1) {
+                updateStatus(`Error: Please drop exactly one file. You dropped ${files.length}.`, true);
+                outputJson.value = ''; // Clear output
+                return;
+            }
+
+            const file = files[0];
+            updateStatus(`Processing file: ${file.name}...`);
+            outputJson.value = ''; // Clear previous output
+
+            const reader = new FileReader();
+
+            reader.onload = function(event) {
+                const fileContent = event.target.result;
+                let myjson;
+
+                // 1. Try parsing the file content as JSON
+                try {
+                    myjson = JSON.parse(fileContent);
+                    updateStatus(`Successfully parsed JSON from ${file.name}.`);
+                } catch (error) {
+                    updateStatus(`Error: Failed to parse file "${file.name}" as JSON. ${error.message}`, true);
+                    outputJson.value = `Error: File content is not valid JSON.\n\n${fileContent.substring(0, 500)}...`; // Show partial content for context
+                    return;
+                }
+
+                // 2. Get the specific nested array
+                let messagelist;
+                try {
+                    // Use optional chaining (?.) for safer access
+                    messagelist = myjson?.chunkedPrompt?.chunks;
+
+                    if (!messagelist || !Array.isArray(messagelist)) {
+                         throw new Error("The structure myjson['chunkedPrompt']['chunks'] was not found or is not an array.");
+                    }
+                     updateStatus(`Found 'messagelist' (chunkedPrompt.chunks) with ${messagelist.length} items.`);
+
+                } catch (error) {
+                     updateStatus(`Error: Could not find required data in JSON structure. ${error.message}`, true);
+                     outputJson.value = `Error: JSON structure is incorrect. Expected to find an array at ['chunkedPrompt']['chunks'].\n\nFound JSON:\n${JSON.stringify(myjson, null, 2)}`;
+                     return;
+                }
+
+                // 3. Call the external function
+                let mappedResult;
+                 try {
+                    if (typeof mapMessagesToDictionary !== 'function') {
+                        throw new Error("The function 'mapMessagesToDictionary' is not defined or is not a function.");
+                    }
+                    mappedResult = mapMessagesToDictionary(messagelist);
+                    updateStatus(`Successfully processed messages using mapMessagesToDictionary.`);
+                 } catch (error) {
+                    updateStatus(`Error: Failed during 'mapMessagesToDictionary' execution. ${error.message}`, true);
+                    outputJson.value = `Error while processing the message list:\n${error.stack || error.message}`;
+                    return;
+                 }
+
+                 // 4. Display the pretty-printed result
+                 try {
+                    const prettyJsonResult = JSON.stringify(mappedResult, null, 2); // null replacer, 2 spaces indentation
+                    outputJson.value = prettyJsonResult;
+                    updateStatus(`Successfully displayed processed result for ${file.name}.`);
+                 } catch (error) {
+                    updateStatus(`Error: Failed to stringify the result from mapMessagesToDictionary. ${error.message}`, true);
+                    outputJson.value = `Error: Could not convert the processing result to a JSON string.\nResult was: ${mappedResult}`;
+                 }
+            };
+
+            reader.onerror = function(event) {
+                updateStatus(`Error: Could not read file "${file.name}". ${reader.error}`, true);
+                outputJson.value = '';
+            };
+
+            // Read the file as text
+            reader.readAsText(file);
+        }
+
+    </script>
+
+</body>
+</html>
