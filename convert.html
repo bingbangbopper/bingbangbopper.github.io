@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Resizer & Converter</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+    *,:after,:before{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/*! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com*/*,:after,:before{box-sizing:border-box;border:0 solid #e5e7eb}:after,:before{--tw-content:""}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;-o-tab-size:4;tab-size:4;font-family:Inter,sans-serif;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0}fieldset,legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::-moz-placeholder,textarea::-moz-placeholder{opacity:1;color:#9ca3af}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.pointer-events-none{pointer-events:none}.absolute{position:absolute}.relative{position:relative}.inset-0{inset:0}.z-10{z-index:10}.mb-1{margin-bottom:.25rem}.ml-auto{margin-left:auto}.mr-2{margin-right:.5rem}.mt-6{margin-top:1.5rem}.block{display:block}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.hidden{display:none}.h-11{height:2.75rem}.h-14{height:3.5rem}.h-4{height:1rem}.h-48{height:12rem}.h-5{height:1.25rem}.h-6{height:1.5rem}.h-full{height:100%}.h-screen{height:100vh}.max-h-full{max-height:100%}.w-4{width:1rem}.w-5{width:1.25rem}.w-6{width:1.5rem}.w-80{width:20rem}.w-full{width:100%}.w-screen{width:100vw}.max-w-full{max-width:100%}.max-w-md{max-width:28rem}.flex-1{flex:1 1 0%}.shrink-0{flex-shrink:0}.cursor-pointer{cursor:pointer}.grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.flex-row{flex-direction:row}.flex-col{flex-direction:column}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-2{gap:.5rem}.gap-3{gap:.75rem}.space-y-1>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.25rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.25rem*var(--tw-space-y-reverse))}.space-y-3>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.75rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.75rem*var(--tw-space-y-reverse))}.space-y-4>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem*var(--tw-space-y-reverse))}.space-y-8>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(2rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(2rem*var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.overflow-y-auto{overflow-y:auto}.rounded{border-radius:.25rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:.5rem}.rounded-md{border-radius:calc(.5rem - 2px)}.rounded-sm{border-radius:calc(.5rem - 4px)}.rounded-xl{border-radius:.75rem}.border{border-width:1px}.border-2{border-width:2px}.border-b{border-bottom-width:1px}.border-l{border-left-width:1px}.border-t{border-top-width:1px}.border-dashed{border-style:dashed}.border-border,.border-input{--tw-border-opacity:1;border-color:hsl(214.3 31.8% 91.4%/var(--tw-border-opacity,1))}.border-primary{--tw-border-opacity:1;border-color:hsl(222.2 47.4% 11.2%/var(--tw-border-opacity,1))}.bg-accent{--tw-bg-opacity:1;background-color:hsl(210 40% 96.1%/var(--tw-bg-opacity,1))}.bg-background{--tw-bg-opacity:1;background-color:hsl(0 0% 100%/var(--tw-bg-opacity,1))}.bg-gray-50\/50{background-color:rgba(249,250,251,.5)}.bg-primary{--tw-bg-opacity:1;background-color:hsl(222.2 47.4% 11.2%/var(--tw-bg-opacity,1))}.bg-secondary{--tw-bg-opacity:1;background-color:hsl(210 40% 96.1%/var(--tw-bg-opacity,1))}.bg-secondary\/30{background-color:rgba(241,245,249,.3)}.object-contain{-o-object-fit:contain;object-fit:contain}.p-1{padding:.25rem}.p-3{padding:.75rem}.p-4{padding:1rem}.p-6{padding:1.5rem}.p-8{padding:2rem}.px-2{padding-left:.5rem;padding-right:.5rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.py-1{padding-top:.25rem;padding-bottom:.25rem}.py-2{padding-top:.5rem;padding-bottom:.5rem}.text-center{text-align:center}.font-mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace}.text-2xl{font-size:1.5rem;line-height:2rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:.875rem;line-height:1.25rem}.text-xs{font-size:.75rem;line-height:1rem}.font-bold{font-weight:700}.font-medium{font-weight:500}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.tracking-tight{letter-spacing:-.025em}.tracking-wider{letter-spacing:.05em}.text-foreground{--tw-text-opacity:1;color:hsl(222.2 47.4% 11.2%/var(--tw-text-opacity,1))}.text-muted-foreground{--tw-text-opacity:1;color:hsl(215.4 16.3% 46.9%/var(--tw-text-opacity,1))}.text-primary{--tw-text-opacity:1;color:hsl(222.2 47.4% 11.2%/var(--tw-text-opacity,1))}.text-primary-foreground{--tw-text-opacity:1;color:hsl(210 40% 98%/var(--tw-text-opacity,1))}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.opacity-0{opacity:0}.opacity-50{opacity:.5}.shadow-2xl{--tw-shadow:0 25px 50px -12px rgba(0,0,0,.25);--tw-shadow-colored:0 25px 50px -12px var(--tw-shadow-color)}.shadow-2xl,.shadow-sm{box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.shadow-sm{--tw-shadow:0 1px 2px 0 rgba(0,0,0,.05);--tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color)}.shadow-xl{--tw-shadow:0 20px 25px -5px rgba(0,0,0,.1),0 8px 10px -6px rgba(0,0,0,.1);--tw-shadow-colored:0 20px 25px -5px var(--tw-shadow-color),0 8px 10px -6px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.ring-1{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow,0 0 #0000)}.ring-black\/5{--tw-ring-color:rgba(0,0,0,.05)}.filter{filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-colors{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.checkered-bg{background-color:#f3f4f6;background-image:linear-gradient(45deg,#e5e7eb 25%,transparent 0),linear-gradient(-45deg,#e5e7eb 25%,transparent 0),linear-gradient(45deg,transparent 75%,#e5e7eb 0),linear-gradient(-45deg,transparent 75%,#e5e7eb 0);background-size:20px 20px;background-position:0 0,0 10px,10px -10px,-10px 0}input[type=range]{-webkit-appearance:none;-moz-appearance:none;appearance:none;background:transparent;width:100%}input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;height:16px;width:16px;border-radius:50%;background:#0f172a;cursor:pointer;margin-top:-6px;border:2px solid #fff;box-shadow:0 0 0 1px #e2e8f0}input[type=range]::-webkit-slider-runnable-track{width:100%;height:4px;cursor:pointer;background:#f1f5f9;border-radius:999px}input[type=range]:focus::-webkit-slider-thumb{box-shadow:0 0 0 2px #fff,0 0 0 4px #0f172a}input[type=range]::-moz-range-thumb{box-sizing:border-box;height:16px;width:16px;border-radius:50%;background:#0f172a;cursor:pointer;border:2px solid #fff;box-shadow:0 0 0 1px #e2e8f0}input[type=range]::-moz-range-track{width:100%;height:4px;cursor:pointer;background:#f1f5f9;border-radius:999px}input[type=range]:focus::-moz-range-thumb{box-shadow:0 0 0 2px #fff,0 0 0 4px #0f172a}.hover\:border-primary\/50:hover{border-color:rgba(15,23,42,.5)}.hover\:bg-accent\/50:hover{background-color:rgba(241,245,249,.5)}.hover\:bg-primary\/90:hover{background-color:rgba(15,23,42,.9)}.hover\:text-foreground:hover{--tw-text-opacity:1;color:hsl(222.2 47.4% 11.2%/var(--tw-text-opacity,1))}.focus-visible\:outline-none:focus-visible{outline:2px solid transparent;outline-offset:2px}.focus-visible\:ring-2:focus-visible{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow,0 0 #0000)}.focus-visible\:ring-ring:focus-visible{--tw-ring-opacity:1;--tw-ring-color:hsl(222.2 47.4% 11.2%/var(--tw-ring-opacity,1))}.group:hover .group-hover\:bg-background{--tw-bg-opacity:1;background-color:hsl(0 0% 100%/var(--tw-bg-opacity,1))}@media (min-width:640px){.sm\:w-96{width:24rem}}
+    </style>
+  </head>
+  <body
+    class="bg-background text-foreground antialiased h-screen w-screen overflow-hidden flex flex-col"
+  >
+    <!-- Navbar -->
+    <header
+      class="h-14 border-b border-border flex items-center px-6 bg-background z-10 shrink-0"
+    >
+      <div class="flex items-center gap-2 font-semibold text-lg tracking-tight">
+        <i data-lucide="image" class="w-5 h-5"></i>
+        <span>Resizer</span>
+      </div>
+      <div class="ml-auto">
+        <button
+          id="reset-btn"
+          class="hidden text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+        >
+          Start Over
+        </button>
+      </div>
+    </header>
+
+    <!-- VIEW 1: Upload Screen -->
+    <main
+      id="view-upload"
+      class="flex-1 flex flex-col items-center justify-center p-4 bg-gray-50/50"
+    >
+      <div class="w-full max-w-md space-y-4 text-center">
+        <h1 class="text-2xl font-bold tracking-tight">Convert an image</h1>
+
+        <div
+          id="upload-zone"
+          class="mt-6 relative group cursor-pointer flex flex-col items-center justify-center w-full h-48 rounded-xl border-2 border-dashed border-input hover:border-primary/50 hover:bg-accent/50 transition-all bg-background"
+        >
+          <input
+            type="file"
+            id="file-input"
+            class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+            accept="image/png, image/jpeg, image/webp"
+          />
+
+          <div
+            class="flex flex-col items-center justify-center space-y-3 pointer-events-none"
+          >
+            <div
+              class="p-3 bg-secondary rounded-full group-hover:bg-background transition-colors shadow-sm"
+            >
+              <i data-lucide="upload-cloud" class="w-6 h-6 text-foreground"></i>
+            </div>
+            <div class="space-y-1">
+              <p class="text-sm font-medium">Click to upload or drag & drop</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- VIEW 2: Editor Screen (Hidden by default) -->
+    <main id="view-editor" class="flex-1 hidden flex-row overflow-hidden">
+      <!-- Left: Image Preview Area -->
+      <section
+        class="flex-1 relative bg-secondary/30 checkered-bg flex items-center justify-center p-8 overflow-hidden"
+      >
+        <!-- This image src is dynamically updated with the processed Blob -->
+        <img
+          id="preview-image"
+          class="max-w-full max-h-full object-contain shadow-2xl rounded-sm ring-1 ring-black/5"
+          src=""
+          alt="Processed Preview"
+        />
+      </section>
+
+      <!-- Right: Sidebar Controls -->
+      <aside
+        class="w-80 sm:w-96 bg-background border-l border-border flex flex-col shadow-xl z-10"
+      >
+        <div class="p-6 flex-1 overflow-y-auto space-y-8">
+          <!-- File Info -->
+          <div class="space-y-3">
+            <h3
+              class="text-sm font-medium text-foreground uppercase tracking-wider"
+            >
+              Statistics
+            </h3>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="p-3 rounded-lg border border-border bg-gray-50/50">
+                <span class="text-xs text-muted-foreground block mb-1"
+                  >Original Size</span
+                >
+                <span
+                  id="stat-original"
+                  class="text-sm font-semibold text-foreground"
+                  >-</span
+                >
+              </div>
+              <div class="p-3 rounded-lg border border-border bg-gray-50/50">
+                <span class="text-xs text-muted-foreground block mb-1"
+                  >New Size (Est)</span
+                >
+                <span id="stat-new" class="text-sm font-semibold text-primary"
+                  >-</span
+                >
+              </div>
+            </div>
+          </div>
+
+          
+
+          <!-- Resize Controls -->
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="text-sm font-medium text-foreground" id="stat-dimensions">Resize</h3>
+              <span
+                id="val-scale"
+                class="text-xs font-mono bg-secondary px-2 py-1 rounded text-foreground"
+                >100%</span
+              >
+            </div>
+
+            <input
+              type="range"
+              id="input-scale"
+              min="1"
+              max="100"
+              value="100"
+              class="w-full"
+            />
+          </div>
+
+          
+
+          <!-- Format Controls -->
+          <div class="space-y-4">
+            <h3 class="text-sm font-medium text-foreground">Format</h3>
+            <div class="grid grid-cols-2 gap-2 p-1 bg-secondary rounded-lg">
+              <button
+                type="button"
+                class="format-btn flex items-center justify-center py-2 text-sm font-medium rounded-md transition-all shadow-sm bg-background text-foreground"
+                data-format="image/jpeg"
+              >
+                JPG
+              </button>
+              <button
+                type="button"
+                class="format-btn flex items-center justify-center py-2 text-sm font-medium rounded-md transition-all text-muted-foreground hover:text-foreground"
+                data-format="image/png"
+              >
+                PNG
+              </button>
+            </div>
+          </div>
+
+          <!-- Quality Controls -->
+          <div id="quality-group" class="space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="text-sm font-medium text-foreground">Quality</h3>
+              <span
+                id="val-quality"
+                class="text-xs font-mono bg-secondary px-2 py-1 rounded text-foreground"
+                >92%</span
+              >
+            </div>
+            <input
+              type="range"
+              id="input-quality"
+              min="1"
+              max="100"
+              value="92"
+              class="w-full"
+            />
+          </div>
+        </div>
+
+        <!-- Footer Action -->
+        <div class="p-6 border-t border-border bg-background">
+          <button
+            id="download-btn"
+            class="w-full h-11 inline-flex items-center justify-center rounded-lg text-sm font-semibold text-primary-foreground bg-primary hover:bg-primary/90 transition-colors shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            <i data-lucide="download" class="w-4 h-4 mr-2"></i> Download Image
+          </button>
+        </div>
+      </aside>
+    </main>
+
+    <script>
+      (()=>{var e={xmlns:"http://www.w3.org/2000/svg",width:24,height:24,viewBox:"0 0 24 24",fill:"none",stroke:"currentColor","stroke-width":2,"stroke-linecap":"round","stroke-linejoin":"round"},t=([e,r,o])=>{let a=document.createElementNS("http://www.w3.org/2000/svg",e);return Object.keys(r).forEach(e=>{a.setAttribute(e,String(r[e]))}),o?.length&&o.forEach(e=>{let r=t(e);a.appendChild(r)}),a},r=e=>"string"==typeof e?e:e&&e.class?e.class&&"string"==typeof e.class?e.class.split(" "):e.class&&Array.isArray(e.class)?e.class:"":"",o=(o,{nameAttr:a,icons:n,attrs:i})=>{var l;let s=o.getAttribute(a);if(null==s)return;let c=n[s.replace(/(\w)(\w*)(_|-|\s*)/g,(e,t,r)=>t.toUpperCase()+r.toLowerCase())];if(!c)return console.warn(`${o.outerHTML} icon name was not found in the provided icons object.`);let d=Array.from(o.attributes).reduce((e,t)=>(e[t.name]=t.value,e),{}),u={...e,"data-lucide":s,...i,...d},h=["lucide",`lucide-${s}`,d,i].flatMap(r).map(e=>e.trim()).filter(Boolean).filter((e,t,r)=>r.indexOf(e)===t).join(" ");h&&Object.assign(u,{class:h});let p=((r,o={})=>{let a={...e,...o};return t(["svg",a,r])})(c,u);return o.parentNode?.replaceChild(p,o)},a=({icons:e={},nameAttr:t="data-lucide",attrs:r={},root:n=document,inTemplates:i}={})=>{if(!Object.values(e).length)throw Error("Please provide an icons object.\nIf you want to use all the icons you can import it like:\n `import { createIcons, icons } from 'lucide';\nlucide.createIcons({icons});`");if(void 0===n)throw Error("`createIcons()` only works in a browser environment.");if(Array.from(n.querySelectorAll(`[${t}]`)).forEach(a=>o(a,{nameAttr:t,icons:e,attrs:r})),i&&Array.from(n.querySelectorAll("template")).forEach(o=>a({icons:e,nameAttr:t,attrs:r,root:o.content,inTemplates:i})),"data-lucide"===t){let l=n.querySelectorAll("[icon-name]");l.length>0&&(console.warn("[Lucide] Some icons were found with the now deprecated icon-name attribute. These will still be replaced for backwards compatibility, but will no longer be supported in v1.0 and you should switch to data-lucide"),Array.from(l).forEach(t=>o(t,{nameAttr:"icon-name",icons:e,attrs:r})))}};a({icons:{Image:[["rect",{width:"18",height:"18",x:"3",y:"3",rx:"2",ry:"2"},],["circle",{cx:"9",cy:"9",r:"2"}],["path",{d:"m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"}],],UploadCloud:[["path",{d:"M12 13v8"}],["path",{d:"M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"},],["path",{d:"m8 17 4-4 4 4"}],],Download:[["path",{d:"M12 15V3"}],["path",{d:"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"}],["path",{d:"m7 10 5 5 5-5"}],]}})})();
+    </script>
+    <script>
+      // --- Elements ---
+      const viewUpload = document.getElementById("view-upload");
+      const viewEditor = document.getElementById("view-editor");
+      const uploadZone = document.getElementById("upload-zone");
+      const fileInput = document.getElementById("file-input");
+      const resetBtn = document.getElementById("reset-btn");
+
+      // Editor Elements
+      const previewImg = document.getElementById("preview-image");
+      const statOriginal = document.getElementById("stat-original");
+      const statNew = document.getElementById("stat-new");
+      const statDim = document.getElementById("stat-dimensions");
+
+      // Inputs
+      const inputScale = document.getElementById("input-scale");
+      const valScale = document.getElementById("val-scale");
+
+      const inputQuality = document.getElementById("input-quality");
+      const valQuality = document.getElementById("val-quality");
+      const qualityGroup = document.getElementById("quality-group");
+
+      const formatBtns = document.querySelectorAll(".format-btn");
+      const downloadBtn = document.getElementById("download-btn");
+
+      // --- State ---
+      let originalImage = null;
+      let originalFile = null;
+      let blobUrl = null; // To keep track and revoke
+
+      let settings = {
+        scale: 1, // 0.01 - 1.00
+        quality: 0.9, // 0.01 - 1.00
+        format: "image/jpeg",
+      };
+
+      // --- Helpers ---
+      function formatBytes(bytes, decimals = 1) {
+        if (!+bytes) return "0 B";
+        const k = 1024;
+        const dm = decimals < 0 ? 0 : decimals;
+        const sizes = ["B", "KB", "MB", "GB"];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${
+          sizes[i]
+        }`;
+      }
+
+      // --- Upload Logic ---
+      fileInput.addEventListener("change", (e) => loadFile(e.target.files[0]));
+
+      // Drag & Drop Styling
+      uploadZone.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        uploadZone.classList.add("border-primary", "bg-accent");
+      });
+      uploadZone.addEventListener("dragleave", (e) => {
+        e.preventDefault();
+        uploadZone.classList.remove("border-primary", "bg-accent");
+      });
+      uploadZone.addEventListener("drop", (e) => {
+        e.preventDefault();
+        uploadZone.classList.remove("border-primary", "bg-accent");
+        if (e.dataTransfer.files.length) loadFile(e.dataTransfer.files[0]);
+      });
+
+      function loadFile(file) {
+        if (!file || !file.type.startsWith("image/")) return;
+
+        originalFile = file;
+        statOriginal.innerText = formatBytes(file.size);
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onload = () => {
+            originalImage = img;
+            switchView("editor");
+            processImage();
+          };
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+
+      // --- View Switching ---
+      function switchView(viewName) {
+        if (viewName === "editor") {
+          viewUpload.classList.add("hidden");
+          viewUpload.classList.remove("flex");
+          viewEditor.classList.remove("hidden");
+          viewEditor.classList.add("flex");
+          resetBtn.classList.remove("hidden");
+        } else {
+          viewEditor.classList.add("hidden");
+          viewEditor.classList.remove("flex");
+          viewUpload.classList.remove("hidden");
+          viewUpload.classList.add("flex");
+          resetBtn.classList.add("hidden");
+
+          // Cleanup
+          fileInput.value = "";
+          originalImage = null;
+          if (blobUrl) URL.revokeObjectURL(blobUrl);
+        }
+      }
+
+      resetBtn.addEventListener("click", () => switchView("upload"));
+
+      // --- Image Processing ---
+      async function processImage() {
+        if (!originalImage) return;
+
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+
+        // Calculate new dimensions
+        const width = Math.round(originalImage.width * settings.scale);
+        const height = Math.round(originalImage.height * settings.scale);
+
+        statDim.innerText = `${width} x ${height}`;
+
+        canvas.width = width;
+        canvas.height = height;
+
+        await createImageBitmap(originalImage, {
+          resizeWidth: width,
+          resizeHeight: height,
+          resizeQuality: "high",
+        }).then((imageBitmap) => ctx.drawImage(imageBitmap, 0, 0));
+
+        const callback = (blob) => {
+          if (!blob) return;
+
+          // Update Stats
+          statNew.innerText = formatBytes(blob.size);
+
+          // Update Preview
+          if (blobUrl) URL.revokeObjectURL(blobUrl);
+          blobUrl = URL.createObjectURL(blob);
+          previewImg.src = blobUrl;
+
+          // Construct filename
+          const namelist = [originalFile.name.split(".")[0]];
+          if (settings.format !== "image/png" && settings.quality < 1)
+            namelist.push(inputQuality.value);
+          if (settings.scale != 1)
+            namelist.push(`scale${inputScale.value}`);
+
+          // Update Download Button
+          const ext = settings.format === "image/png" ? "png" : "jpg";
+          downloadBtn.onclick = () => {
+            const link = document.createElement("a");
+            link.download = `${namelist.join(" ")}.${ext}`;
+            link.href = blobUrl;
+            link.click();
+          };
+        };
+
+        // Export to blob
+        if (settings.format === "image/png") {
+          canvas.toBlob(callback, settings.format);
+        } else {
+          canvas.toBlob(callback, settings.format, settings.quality);
+        }
+      }
+
+      // --- SCALE ---
+
+      // 1. Update text immediately while dragging
+      inputScale.addEventListener("input", (e) => {
+        valScale.innerText = `${e.target.value}%`;
+        const width = Math.round(originalImage.width * e.target.value / 100);
+        const height = Math.round(originalImage.height * e.target.value / 100);
+        statDim.innerText = `${width} x ${height}`;
+      });
+
+      // 2. Run heavy processing only when released/committed
+      inputScale.addEventListener("change", (e) => {
+        // Ensure text is synced (just in case)
+        valScale.innerText = `${e.target.value}%`; 
+        settings.scale = parseInt(e.target.value) / 100;
+        processImage();
+      });
+
+
+      // --- QUALITY ---
+
+      // 1. Update text immediately while dragging
+      inputQuality.addEventListener("input", (e) => {
+        valQuality.innerText = `${e.target.value}%`;
+      });
+
+      // 2. Run heavy processing only when released/committed
+      inputQuality.addEventListener("change", (e) => {
+        // Ensure text is synced
+        valQuality.innerText = `${e.target.value}%`;
+        settings.quality = parseInt(e.target.value) / 100;
+        processImage();
+      });
+
+      // Format
+      formatBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          // UI Toggle
+          formatBtns.forEach((b) => {
+            b.classList.remove("bg-background", "text-foreground", "shadow-sm");
+            b.classList.add("text-muted-foreground", "hover:text-foreground");
+          });
+          btn.classList.remove(
+            "text-muted-foreground",
+            "hover:text-foreground"
+          );
+          btn.classList.add("bg-background", "text-foreground", "shadow-sm");
+
+          // Logic
+          settings.format = btn.dataset.format;
+
+          // PNG usually doesn't support the quality param in toBlob the same way JPG does
+          // but standard canvas API allows it for some formats.
+          // Usually for PNG it's ignored, so we hide the slider to avoid confusion.
+          if (settings.format === "image/png") {
+            qualityGroup.classList.add("opacity-50", "pointer-events-none");
+          } else {
+            qualityGroup.classList.remove("opacity-50", "pointer-events-none");
+          }
+
+          processImage();
+        });
+      });
+    </script>
+  </body>
+</html>
