@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stream Text Extractor</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f7;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+
+        header {
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            color: #333;
+            margin: 0 0 5px 0;
+        }
+
+        p {
+            font-size: 0.9rem;
+            color: #666;
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            flex: 1;
+            gap: 20px;
+            min-height: 0; /* Prevents container from overflowing flex parent */
+        }
+
+        .pane {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            color: #444;
+        }
+
+        textarea {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 13px;
+            resize: none;
+            box-sizing: border-box;
+            background-color: #fff;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #0066cc;
+            box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.2);
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 15px;
+            gap: 10px;
+        }
+
+        button {
+            padding: 10px 24px;
+            font-size: 1rem;
+            font-weight: 500;
+            color: white;
+            background-color: #0066cc;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+        }
+
+        button:hover {
+            background-color: #0052a3;
+        }
+
+        button:active {
+            background-color: #004080;
+        }
+
+        .clear-btn {
+            background-color: #e0e0e0;
+            color: #333;
+        }
+
+        .clear-btn:hover {
+            background-color: #d0d0d0;
+        }
+
+        .clear-btn:active {
+            background-color: #c0c0c0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            body {
+                height: auto;
+            }
+            textarea {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Stream Text Extractor</h1>
+        <p>Paste raw stream lines below to extract and combine the text content.</p>
+    </header>
+
+    <div class="container">
+        <!-- Input Section -->
+        <div class="pane">
+            <label for="inputBox">Input Stream Data</label>
+            <textarea id="inputBox" placeholder="Paste 'data: ...' lines here..."></textarea>
+        </div>
+
+        <!-- Output Section -->
+        <div class="pane">
+            <label for="outputBox">Extracted Result</label>
+            <textarea id="outputBox" placeholder="Extracted text will appear here..." readonly></textarea>
+        </div>
+    </div>
+
+    <div class="button-container">
+        <button type="button" class="clear-btn" onclick="clearBoxes()">Clear</button>
+        <button type="button" onclick="handleExtract()">Extract Text</button>
+    </div>
+
+    <script>
+        // Provided extraction logic
+        function extractStreamText(streamString) {
+            const lines = streamString.split(/\r?\n/);
+            let accumulatedText = '';
+
+            for (const line of lines) {
+                // Only process lines that contain data payload
+                if (!line.startsWith('data: ')) {
+                    continue;
+                }
+
+                // Extract the JSON portion after "data: "
+                const jsonString = line.slice(6).trim();
+                if (!jsonString) {
+                    continue;
+                }
+
+                try {
+                    const data = JSON.parse(jsonString);
+
+                    if (!data) {
+                        continue;
+                    }
+
+                    // Scenario 1: The data contains a nested response fragment array (e.g., initial payload)
+                    if (data.v && data.v.response && Array.isArray(data.v.response.fragments)) {
+                        const firstFragment = data.v.response.fragments[0];
+                        if (firstFragment && typeof firstFragment.content === 'string') {
+                            accumulatedText += firstFragment.content;
+                        }
+                    } 
+                    // Scenario 2: The data has a flat "v" property representing a string fragment
+                    else if (typeof data.v === 'string') {
+                        accumulatedText += data.v;
+                    }
+                } catch (error) {
+                    // Ignore lines that are not valid JSON or fail to parse
+                }
+            }
+
+            return accumulatedText;
+        }
+
+        // Handler to connect UI with the extraction function
+        function handleExtract() {
+            const inputVal = document.getElementById('inputBox').value;
+            const result = extractStreamText(inputVal);
+            document.getElementById('outputBox').value = result;
+        }
+
+        // Helper to clear both text areas
+        function clearBoxes() {
+            document.getElementById('inputBox').value = '';
+            document.getElementById('outputBox').value = '';
+        }
+    </script>
+</body>
+</html>
